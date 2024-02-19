@@ -26,7 +26,13 @@ class _LoginState extends State<Login> {
       FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text, password: password.text);
       // Your sign-in logic here
-    } catch (e) {
+    }on FirebaseAuthException catch (e) {
+      print('Sign-in failed: $e');
+      Get.snackbar('Error:', e.code);
+      // Handle the error and provide appropriate feedback to the user
+    }
+    catch (e) {
+      Get.snackbar('Error:', e.toString());
       print('Sign-in failed: $e');
       // Handle the error and provide appropriate feedback to the user
     }
