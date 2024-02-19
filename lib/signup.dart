@@ -7,27 +7,26 @@ import 'package:get/get.dart';
 import 'package:userauth/homepage.dart';
 import 'package:userauth/login.dart';
 import 'package:userauth/wrapper.dart';
-import 'package:userauth/signup.dart';
-import 'package:userauth/forgot.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  signin() async {
+  signup() async {
     try {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
+      FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
+      Get.offAll(Wrapper());
       // Your sign-in logic here
     } catch (e) {
-      print('Sign-in failed: $e');
+      print('Sign-up failed: $e');
       // Handle the error and provide appropriate feedback to the user
     }
   }
@@ -36,7 +35,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Signup'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -52,22 +51,10 @@ class _LoginState extends State<Login> {
             ),
             ElevatedButton(
               onPressed: () {
-                signin();
+                signup();
               },
-              child: Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(Signup());
-              },
-              child: Text('Register now'), 
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(Forgot());
-              },
-              child: Text('Forget Password?'),
-            ),
+              child: Text('Signup'),
+            )
           ],
         ),
       ),

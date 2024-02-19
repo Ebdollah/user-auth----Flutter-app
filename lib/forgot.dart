@@ -8,35 +8,34 @@ import 'package:userauth/homepage.dart';
 import 'package:userauth/login.dart';
 import 'package:userauth/wrapper.dart';
 import 'package:userauth/signup.dart';
-import 'package:userauth/forgot.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+
+class Forgot extends StatefulWidget {
+  const Forgot({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Forgot> createState() => _ForgotState();
 }
 
-class _LoginState extends State<Login> {
+class _ForgotState extends State<Forgot> {
   TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
 
-  signin() async {
+  forgot() async {
     try {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text, password: password.text);
+      FirebaseAuth.instance.sendPasswordResetEmail(
+          email: email.text);
+      Get.offAll(Wrapper());
       // Your sign-in logic here
     } catch (e) {
-      print('Sign-in failed: $e');
+      print('Could not reset password failed: $e');
       // Handle the error and provide appropriate feedback to the user
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Forgot Password'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -46,31 +45,16 @@ class _LoginState extends State<Login> {
               controller: email,
               decoration: InputDecoration(hintText: 'Enter Email'),
             ),
-            TextField(
-              controller: password,
-              decoration: InputDecoration(hintText: 'Enter Password'),
-            ),
             ElevatedButton(
               onPressed: () {
-                signin();
+                forgot();
               },
-              child: Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(Signup());
-              },
-              child: Text('Register now'), 
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(Forgot());
-              },
-              child: Text('Forget Password?'),
-            ),
+              child: Text('reset password'),
+            )
           ],
         ),
       ),
     );
+ 
   }
 }

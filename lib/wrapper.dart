@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:userauth/homepage.dart';
 import 'package:userauth/login.dart';
+import 'package:userauth/forgot.dart';
+import 'package:userauth/signup.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});
