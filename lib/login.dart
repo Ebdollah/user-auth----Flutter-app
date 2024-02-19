@@ -16,8 +16,14 @@ class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
 
   signin() async {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email.text, password: password.text);
+    try {
+      FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+      // Your sign-in logic here
+    } catch (e) {
+      print('Sign-in failed: $e');
+      // Handle the error and provide appropriate feedback to the user
+    }
   }
 
   @override
